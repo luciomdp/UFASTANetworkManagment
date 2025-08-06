@@ -1,9 +1,13 @@
 #!/bin/bash
 
-# Load necessary environment variables from .env file
-set -a
-source .env
-set +a
+if [ -f .env ]; then
+  source .env
+elif [ -f ../../.env ]; then
+  source ../../.env
+else
+  echo "Error: archivo .env no encontrado ni en el directorio actual ni en la raiz del proyecto"
+  exit 1
+fi
 
 # Set paths for the SSH keys
 SSH_DIR="$HOME/.ssh"
